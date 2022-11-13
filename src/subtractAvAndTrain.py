@@ -1,6 +1,7 @@
 import cv2
 import averageImage as av
 
+
 def subtractAvAndTrain(path):
     # fungsi ini digunakan untuk mendapatkan selisih antara training image dan rata rata
     s = av.getHimpunanImgV2(path)
