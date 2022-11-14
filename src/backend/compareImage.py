@@ -30,3 +30,14 @@ def compareAllImage(imageNew, AllImage):
                   
     return min
 
+def compareAllImageV2(imageNew):
+    # versi kedua dari compareAllImage
+    # Asumsi : Semua dataset ada di dalam folder test
+    AllImage = '../test/'
+    min = compareImage(imageNew, AllImage)
+    for i in range (len(AllImage)):
+        result = compareImage(imageNew, AllImage[i])
+        if (result < min):
+            min = result
+                  
+    return min
