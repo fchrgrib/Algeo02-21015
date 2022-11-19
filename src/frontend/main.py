@@ -77,14 +77,14 @@ canvas = Canvas(
 canvas.place(x=0,y=0)
 
 # 2. Background
-background_img = PhotoImage(file = f"img/main-background.png")
+background_img = PhotoImage(file = f"src/frontend/img/main-background.png")
 background = canvas.create_image(
     540.0, 360.0,
     image = background_img
 )
 
 # 3. Buttons
-button1_img = PhotoImage(file = f"img/button1.png")
+button1_img = PhotoImage(file = f"src/frontend/img/button1.png")
 button1_entry = Button(
     image = button1_img,
     borderwidth = 0,
@@ -98,7 +98,7 @@ button1_entry.place(
     height = 40
 )
 
-button2_img = PhotoImage(file = f"img/button2.png")
+button2_img = PhotoImage(file = f"src/frontend/img/button2.png")
 button2_entry = Button(
     image = button2_img,
     borderwidth = 0,
@@ -112,7 +112,7 @@ button2_entry.place(
     height = 40
 )
 
-button3_img = PhotoImage(file = f"img/search.png")
+button3_img = PhotoImage(file = f"src/frontend/img/search.png")
 button3_entry = Button(
     image = button3_img,
     borderwidth = 0,
