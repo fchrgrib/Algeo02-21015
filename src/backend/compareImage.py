@@ -37,7 +37,7 @@ def compareAllImageV2(imageNew):
     min = compareImage(imageNew, AllImage)
     for i in range (len(AllImage)):
         result = compareImage(imageNew, AllImage[i])
-        if (result < min):
+        if result < min:
             min = result
                   
     return min
