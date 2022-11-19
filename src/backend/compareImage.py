@@ -3,14 +3,14 @@ import math
 
 def compareImage(imageNew, imageOld):
     # Mendapatkan selisih antara image trainer dan nilai tengah
-    imgNew = tools.subtractAvAndTrain(imageNew)
-    imgOld = tools.subtractAvAndTrain(imageOld)
+    imgNew = tools.subtractAvAndTrain.subtractAvAndTrain(imageNew)
+    imgOld = tools.subtractAvAndTrain.subtractAvAndTrain(imageOld)
     
-    vNew = tools.eigenValVec(imgNew)[1]
-    vOld = tools.eigenValVec(imgOld)[1]
+    vNew = tools.eigenValVec.eigenValVec(imageNew)[1]
+    vOld = tools.eigenValVec.eigenValVec(imageOld)[1]
     
-    newFace = tools.eigenFace(vNew, imageNew)
-    oldFace = tools.eigenFace(vOld, imageOld)
+    newFace = tools.eigenFace.eigenFace(vNew, imageNew)
+    oldFace = tools.eigenFace.eigenFace(vOld, imageOld)
     
     result = 0
     for i in range (len(newFace)):
