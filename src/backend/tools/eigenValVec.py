@@ -1,20 +1,18 @@
 import numpy as np
-import sympy as sym
 
 
-def all_minus(matrix):
-    for i in range (len(matrix)):
-        for j in range (len(matrix[0])):
-            matrix[i][j] = -matrix[i][j]
-
-
-def eigenVal(matrix):
-    lengthMatrix = len(matrix)
-    symb = sym.symbols('k')
-    all_minus(matrix)
-    for i in range(lengthMatrix):
-        matrix[i][i] += symb[i]
-    matrix = sym.Matrix(matrix)
-    det = sym.det(matrix)
-
+def eigenValVec(matrix,iteration=500000):
+    mat = np.copy(matrix)
+    n = matrix.shape[0]
+    QQ = np.eye(n)
+    for i in range(iteration):
+        s = mat.item(n-1,n-1)
+        smult = s*np.eye(n)
+        Q, R = np.linalg.qr(np.subtract(mat,smult))
+        mat = np.add(R @ Q,smult)
+        QQ = QQ @ Q
+    eigVal = [0 for i in range(len(mat))]
+    for i in range(len(anu)):
+        eigVal[i] = mat[i][i]
+    return eigVal,QQ
 
