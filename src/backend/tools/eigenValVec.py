@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def eigenValVec(matrix,iteration=500000):
+def eigenValVec(matrix,iteration=1):
     mat = np.copy(matrix)
     n = matrix.shape[0]
     QQ = np.eye(n)
@@ -12,7 +12,7 @@ def eigenValVec(matrix,iteration=500000):
         mat = np.add(R @ Q,smult)
         QQ = QQ @ Q
     eigVal = [0 for i in range(len(mat))]
-    for i in range(len(anu)):
+    for i in range(len(mat)):
         eigVal[i] = mat[i][i]
     return eigVal,QQ
 
