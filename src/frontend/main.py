@@ -2,6 +2,7 @@ import os
 from tkinter import *
 from tkinter import filedialog
 from tkinter.messagebox import showerror
+from PIL import ImageTk, Image
 
 # Initialization --------------------------------------
 
@@ -20,8 +21,8 @@ DATASET.set("")
 DATASET_PLACEHOLDER = StringVar()
 DATASET_PLACEHOLDER.set("No data chosen")
 
-YOUR_IMAGE = StringVar() # dev note: Ini input Test Image-nya. Cara akses stringnya DATASET.get()
-YOUR_IMAGE.set("")
+YOUR_IMAGE_PATH = StringVar() # dev note: Ini input Test Image-nya. Cara akses stringnya DATASET.get()
+YOUR_IMAGE_PATH.set("")
 
 YOUR_IMAGE_PLACEHOLDER = StringVar()
 YOUR_IMAGE_PLACEHOLDER.set("No file chosen")
@@ -33,7 +34,7 @@ RESULT_STR.set("0% Similar")
 
 def openFolder():
     DATASET_STR = filedialog.askdirectory(
-        initialdir="..\\..\\",
+        initialdir=".\\",
         title = "Choose data set",
     )
     if DATASET_STR:
@@ -42,22 +43,29 @@ def openFolder():
 
 def openFile():
     YOUR_IMAGE_STR = filedialog.askopenfilename(
-        initialdir="..\\..\\",
+        initialdir=".\\",
         title = "Choose file",
-        filetypes = (("png files", "*.png"),
-        ("jpg files", "*.jpg"),
+        filetypes = (("jpg files", "*.jpg"),
+        ("png files", "*.png"),
         ("all files", "*.*"))
     )
     if YOUR_IMAGE_STR:
-        YOUR_IMAGE.set(YOUR_IMAGE_STR)
+        YOUR_IMAGE_PATH.set(YOUR_IMAGE_STR)
         YOUR_IMAGE_PLACEHOLDER.set(os.path.basename(YOUR_IMAGE_STR))
 
+        yourImage_img = Image.open(YOUR_IMAGE_PATH.get()).resize((280, 280))
+        yourImage_img = ImageTk.PhotoImage(yourImage_img)
+        yourImage_label.configure(image = yourImage_img)
+        yourImage_label.image = yourImage_img
+
+
+
 def calculateFace():
-    if (DATASET.get() != "") & (YOUR_IMAGE.get() != ""):
+    if (DATASET.get() != "") & (YOUR_IMAGE_PATH.get() != ""):
         # dev note: Fungsi backend taro di sini
         print("Calculating face")
         print(DATASET.get())
-        print(YOUR_IMAGE.get())
+        print(YOUR_IMAGE_PATH.get())
         # sampai sini
     else:
         showerror(title="Error", message="Data set and Image are invalid")
@@ -178,5 +186,17 @@ result_label.place(
     width = 190,
     height = 40,
 )
+
+# 5. Image Label
+yourImage_label = Label(
+    canvas,
+    width = 280, height = 280
+)
+yourImage_label.place(
+    x = 408, y = 235,
+    width = 280,
+    height = 280
+)
+
 
 window.mainloop()
