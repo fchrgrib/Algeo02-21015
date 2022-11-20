@@ -53,7 +53,7 @@ def openFile():
         YOUR_IMAGE_PATH.set(YOUR_IMAGE_STR)
         YOUR_IMAGE_PLACEHOLDER.set(os.path.basename(YOUR_IMAGE_STR))
 
-        yourImage_img = Image.open(YOUR_IMAGE_PATH.get()).resize((280, 280))
+        yourImage_img = Image.open(YOUR_IMAGE_PATH.get()).resize((280, 280), box=(0,0,280,280))
         yourImage_img = ImageTk.PhotoImage(yourImage_img)
         yourImage_label.configure(image = yourImage_img)
         yourImage_label.image = yourImage_img
