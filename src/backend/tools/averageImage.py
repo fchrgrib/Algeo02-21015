@@ -1,4 +1,4 @@
-import numpy as np
+import test.classes_pins_dataset.pins_Rihanna as anu
 import cv2
 from matplotlib import pyplot as plt
 import glob
@@ -118,7 +118,7 @@ def averageImgV4(path, N):
 def getHimpunanImgV2(path):
     # Mendapatkan himpunan gambar hanya dengan memasukkan folder
     # File yang dibaca hanyalah bentuk jpg dengan nama sembarang
-    file = glob.glob(path+'/*')
+    file = glob.glob(str(path)+"/*")
     new_file = []
     for i in range (len(file)):
         new_file.append(file[i].replace("\\","/"))
@@ -170,13 +170,12 @@ def averageImgV6(path):
             rata[m][n] /= N
     return rata
     
-    
-    
+
 # # Contoh driver:
 # start_time = time.time()
 # # Note: directory bisa diganti
 # # Fungsi yang efektif adalah averageImgV6 (versi keenam) dan getHimpunanImgV2 (versi kedua)
-# newImg = averageImgV6('.\\test/105_classes_pins_dataset/pins_Adriana Lima')
+# newImg = averageImgV6('.\\test/classes_pins_dataset/pins_Adriana Lima')
 # print("--- %s seconds ---" % (time.time() - start_time))
 # showImg(newImg)
 
