@@ -12,9 +12,9 @@ def compareImage(imageNew, imageOld):
     vNew = [0 for i in range (len(imgNew))]
     vOld = [0 for i in range(len(imgOld))]
     for i in range (len(imgNew)):
-        vNew[i] = eigenVec.eigenValVec(np.matrix(imgNew[i]))
+        w,vNew[i] = eigenVec.eigenValVec(np.matrix(imgNew[i]))
     for i in range(len(imgOld)):
-        vOld[i] = eigenVec.eigenValVec(np.matrix(imgOld[i]))
+        w,vOld[i] = eigenVec.eigenValVec(np.matrix(imgOld[i]))
     # vNew = eigenVec.eigenValVec(imgNew)
     # vOld = eigenVec.eigenValVec(imgOld)
     
@@ -25,8 +25,8 @@ def compareImage(imageNew, imageOld):
     for i in range (len(newFace)):
         for j in range (len(oldFace)):
             result += (abs(newFace[i][j] - oldFace[i][j]))**2
-    result = math.sqrt(result)
-    
+    result = np.sqrt(result)
+    result = np.sum(result)
     return result
 
 def compareAllImage(imageNew, AllImage):

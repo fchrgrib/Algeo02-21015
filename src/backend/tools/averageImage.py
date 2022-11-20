@@ -1,4 +1,3 @@
-import test.classes_pins_dataset.pins_Rihanna as anu
 import cv2
 from matplotlib import pyplot as plt
 import glob
