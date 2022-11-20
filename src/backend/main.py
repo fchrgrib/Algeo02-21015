@@ -1,5 +1,6 @@
 import compareImage as comp
-import test.classes_pins_dataset.pins_Rihanna as anu
+import tes
+t.classes_pins_dataset.pins_Rihanna as anu
 
 a = anu
 b = anu

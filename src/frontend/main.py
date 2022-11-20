@@ -2,16 +2,16 @@ import os
 from tkinter import *
 from tkinter import filedialog
 from tkinter.messagebox import showerror
-from PIL import ImageTk, Image
+# from PIL import ImageTk, Image
 
 # Initialization --------------------------------------
 
 window = Tk()
-# icon here
 window.configure(bg="white")
 window.geometry("1040x720")
 window.resizable(False, False)
 window.title("GeoFace")
+window.iconbitmap("src/frontend/img/geoface.ico")
 
 # Variables --------------------------------------
 
@@ -53,7 +53,7 @@ def openFile():
         YOUR_IMAGE_PATH.set(YOUR_IMAGE_STR)
         YOUR_IMAGE_PLACEHOLDER.set(os.path.basename(YOUR_IMAGE_STR))
 
-        yourImage_img = Image.open(YOUR_IMAGE_PATH.get()).resize((280, 280), box=(0,0,280,280))
+        yourImage_img = Image.open(YOUR_IMAGE_PATH.get()).resize((280, 280))
         yourImage_img = ImageTk.PhotoImage(yourImage_img)
         yourImage_label.configure(image = yourImage_img)
         yourImage_label.image = yourImage_img
