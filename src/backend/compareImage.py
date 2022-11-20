@@ -11,7 +11,6 @@ def compareImage(imageNew, imageOld):
     # Mendapatkan selisih antara image trainer dan nilai tengah
     imgNew = sub.subtractAvAndTrain(imageNew)
     imgOld = sub.subtractAvAndTrain(imageOld)
-    print(len(imgNew))
     vNew = ([0 for i in range (len(imgNew))])
     vOld = [0 for i in range(len(imgOld))]
     for i in range (len(imgNew)):
