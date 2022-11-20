@@ -1,16 +1,25 @@
-import tools
 import math
+import tools.subtractAvAndTrain as sub
+import tools.eigenValVec as eigenVec
+import tools.eigenFace as eigFace
+import numpy as np
 
 def compareImage(imageNew, imageOld):
     # Mendapatkan selisih antara image trainer dan nilai tengah
-    imgNew = tools.subtractAvAndTrain.subtractAvAndTrain(imageNew)
-    imgOld = tools.subtractAvAndTrain.subtractAvAndTrain(imageOld)
+    imgNew = sub.subtractAvAndTrain(imageNew)
+    imgOld = sub.subtractAvAndTrain(imageOld)
+
+    vNew = [0 for i in range (len(imgNew))]
+    vOld = [0 for i in range(len(imgOld))]
+    for i in range (len(imgNew)):
+        vNew[i] = eigenVec.eigenValVec(np.matrix(imgNew[i]))
+    for i in range(len(imgOld)):
+        vOld[i] = eigenVec.eigenValVec(np.matrix(imgOld[i]))
+    # vNew = eigenVec.eigenValVec(imgNew)
+    # vOld = eigenVec.eigenValVec(imgOld)
     
-    vNew = tools.eigenValVec.eigenValVec(imageNew)[1]
-    vOld = tools.eigenValVec.eigenValVec(imageOld)[1]
-    
-    newFace = tools.eigenFace.eigenFace(vNew, imageNew)
-    oldFace = tools.eigenFace.eigenFace(vOld, imageOld)
+    newFace = eigFace.eigenFace(vNew, imageNew)
+    oldFace = eigFace.eigenFace(vOld, imageOld)
     
     result = 0
     for i in range (len(newFace)):
