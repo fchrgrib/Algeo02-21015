@@ -2,7 +2,8 @@ import os
 from tkinter import *
 from tkinter import filedialog
 from tkinter.messagebox import showerror
-# from PIL import ImageTk, Image
+from PIL import ImageTk, Image
+import time
 
 # Initialization --------------------------------------
 
@@ -15,20 +16,28 @@ window.iconbitmap("src/frontend/img/geoface.ico")
 
 # Variables --------------------------------------
 
+# 1. Dataset
 DATASET = StringVar() # dev note: Ini input Dataset-nya. Cara akses stringnya DATASET.get()
 DATASET.set("")
 
 DATASET_PLACEHOLDER = StringVar()
 DATASET_PLACEHOLDER.set("No data chosen")
 
+# 2. Image input
 YOUR_IMAGE_PATH = StringVar() # dev note: Ini input Test Image-nya. Cara akses stringnya DATASET.get()
 YOUR_IMAGE_PATH.set("")
 
 YOUR_IMAGE_PLACEHOLDER = StringVar()
 YOUR_IMAGE_PLACEHOLDER.set("No file chosen")
 
+# 3. Result Percent
 RESULT_STR = StringVar()
 RESULT_STR.set("0% Similar")
+
+# 4. Counter
+total_counter = 0
+COUNTER_STR = StringVar()
+COUNTER_STR.set(f"{total_counter:.2f} seconds")
 
 # Function --------------------------------------     
 
@@ -62,11 +71,19 @@ def openFile():
 
 def calculateFace():
     if (DATASET.get() != "") & (YOUR_IMAGE_PATH.get() != ""):
+        # Start timer
+        start_counter = time.time()
+        # Loading (not working)
+        counter_label.config(text="Loading...")
         # dev note: Fungsi backend taro di sini
         print("Calculating face")
         print(DATASET.get())
         print(YOUR_IMAGE_PATH.get())
-        # sampai sini
+        # dev note: sampai sini
+        # End timer
+        end_counter = time.time()
+        total_counter = end_counter - start_counter
+        COUNTER_STR.set(f"{total_counter:.2f} seconds")
     else:
         showerror(title="Error", message="Data set and Image are invalid")
 
@@ -180,11 +197,27 @@ result_label = Label(
     anchor = "w",
     padx = 10
 )
-
 result_label.place(
     x = 68, y = 555,
     width = 190,
     height = 40,
+)
+
+counter_label = Label(
+    canvas,
+    textvariable = COUNTER_STR,
+    font = ("Poppins", 14),
+    fg = "#000",
+    borderwidth = 0,
+    background = "#fff",
+    highlightthickness = 0,
+    anchor= "w",
+    padx = 10
+)
+counter_label.place(
+    x = 400, y = 555,
+    width = 190,
+    height = 40 
 )
 
 # 5. Image Label
