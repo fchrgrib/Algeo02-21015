@@ -2,6 +2,7 @@ import glob
 import cv2
 import matplotlib as plt
 import numpy as np
+import averageImage as ag
 # import eigenValVec as ev
 
 
@@ -109,6 +110,37 @@ def covarianceGreek(path):
     greekTranspose = np.transpose(matrixGreek)
     greekCovariance = np.matmul(matrixGreek,greekTranspose)
     return greekCovariance
+
+
+def subtractNoFlat(S):
+    # S adalah himpunan gambar 
+    # return matrix 3 dimensi setelah dikurang rerata
+    SS = np.copy(S)
+    avg = averageImgV8(S)
+    for i in range (len(S)):
+        SS[i] = np.subtract(S[i], avg)
+    return SS
+
+
+def concatManual(S):
+    # S adalah himpunan gambar yang sudah dikurang
+    # return matrix 2 dimensi concat ke samping
+    B = S[0]
+    for i in range(len(S) - 1):
+        B = np.concatenate((B, S[i+1]), axis=1)
+    return B
+
+
+def covarianceManual(path):
+    # mendapatkan langsung nilai kovarian tanpa konversi
+    # return matrix kovarian kotak
+    S = getHimpunanImgV3(path)
+    S_subtract = subtractNoFlat(S)
+    A = concatManual(S_subtract)
+    AT = np.transpose(A)
+    cov = np.matmul(A, AT)
+    return cov
+    
 
 
 ''' 
