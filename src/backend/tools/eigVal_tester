@@ -36,7 +36,7 @@ print("\n\n")
 # eigVal merupakan eigen value dari matrix kovarian aksen
 eigVal = ev.getEigenValueQR(covarGreek,145)
 print(eigVal)
-print("========================")
+print("===========================================================")
 eigVal1, eigVec1 = np.linalg.eig(covarGreek)
 print(eigVal1)
 
@@ -57,7 +57,29 @@ A = [[1,2,3],
      [9,9,9],
      [4,2,-5]]
 
-eigVal = ev.getEigenValueQR(A,20)
-eigVec = ev.getEigenVectorQR(A,eigVal)
-print(np.matrix(eigVec))
+eigVals = ev.getEigenValueQR(A,145)
+eigVecs = ev.getEigenVectorQR(A,eigVals)
+
+print("==================================================================")
+print(np.matrix(eigVecs))
+print("==================================================================")
+print("==================================================================")
+valTes, vecTes = np.linalg.eig(A)
+print(vecTes)
+
+print("==================================================================")
+print("==================================================================")
+himpGambar = np.transpose(subtracted_greeked)
+realVector = ev.getRealEigenVector(himpGambar,eigVec)
+print(len(realVector))
+print(len(realVector[0]))
+print(np.matrix(realVector))
+
+print("==================================================================")
+print("==================================================================")
+eigFace = ev.getEigenFace(himpGambar, realVector)
+print(np.matrix(eigFace))
+
+print("==================================================================")
+print("==================================================================")
 
