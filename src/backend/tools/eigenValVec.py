@@ -167,6 +167,7 @@ def getEigenVectorQR (matrix, eigenValue):
             
         # solve matrix A - lambda I dapat eigen vektor
         Eigen_Vector = np.linalg.solve(Matrix_temp, eigenValue_temp)
+        print(Eigen_Vector)
         
         # cari panjang dari eigen vektor yang telah didapat
         normalize_Vector = magnitude(Eigen_Vector)
@@ -179,7 +180,6 @@ def getEigenVectorQR (matrix, eigenValue):
         # jadi di append ke res lalu proses diulangi untuk eigen berikutnya
         for z in range (len(matrix)):
             res[z][i] = Eigen_Vector[z]
-    
 
     return res
 
@@ -190,15 +190,29 @@ def getEigenVectorQRV2 (matrix):
 
 def getRealEigenVector (S, eigenVectorQR):
     # eigenVectorQR merupakan eigen vektor yang didapat dari kovarian kecil
-    # S merupakan hipunan gambar
-    realVector = [] # 3 dimensi
-    for i in range(len(S)): 
-        tempArr = [0 for k in range (len(eigenVectorQR))]
-        for j in range (len(S)): # Jumlah gambar
-            tempArr = np.array(getVektor(eigenVectorQR, i))
-            res = np.matmul(S[j], tempArr.reshape(256,256))
-        realVector = np.concatenate(realVector, res)
+    # S merupakan hipunan gambar yang sudah di subtract
+    # ukuran S = 256^2 X N dengan N banyak file
+    realVector = [[0 for m in range(len(S[0]))] for n in range (len(S))] # 2 dimensi
+    for i in range(len(S[0])): 
+        # Mendapatkan eigen vektor dari S ke i
+        tempVec = getVektor(eigenVectorQR,i)
+        A = np.matmul(S, tempVec)
+        for j in range(len(S)):
+            realVector[j][i] = A[j]
+    return realVector
         
+
+def getEigenFace (S, realEigenVector):
+    # S merupakan himpunan gambar yang sudah di subtract
+    # ukuran S = 256^2 X N dengan N banyak file
+    eigenFace = [[0 for m in range(len(S[0]))] for n in range (len(S))] # 2 dimensi 
+    for i in range (len(S[0])): # loop N kali dengan N banyak file
+        tempVec = getVektor(realEigenVector,i)
+        A = np.matmul(S, tempVec)
+        for j in range(len(S)):
+            eigenFace[j][i] = A[j]
+    return eigenFace
+
 
 def eigen_qr_simple(matrix, iterations=10000):
     Ak = np.copy(matrix)
