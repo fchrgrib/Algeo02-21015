@@ -49,7 +49,7 @@ def averageImgV7(path):
 
 def substractAll(path):
     # Mendapatkan nilai gambar dikurangi average
-    # Keluaran outputnya adalah matrix 3 dimensi
+    # Keluaran outputnya adalah matrix 2 dimensi
     S = getHimpunanImgV3(path) # Dapet himpunan gambar
     avg = averageImgV7(path) # Dapet nilai rata-ratanya
     npAvg = np.array(avg)
@@ -61,6 +61,22 @@ def substractAll(path):
         tempFlat = temp.flatten
         matrixGreek.append(np.subtract(tempFlat,avgFlat))
     return matrixGreek
+
+
+def averageImgV8(S):
+    # merata-ratakan seluruh image dari himpunan S
+    N = len(S)
+    SET = 256
+    rata = [[0 for i in range (SET)] for j in range (SET)]
+    for j in range (N):
+        for k in range (SET):
+            for l in range (SET):
+                rata[k][l] += S[j][k][l]
+    for m in range (SET):
+        for n in range (SET):
+            rata[m][n] /= N
+    return rata
+
 
 
 def covarianceGreek(path):
