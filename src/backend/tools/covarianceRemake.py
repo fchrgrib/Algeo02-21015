@@ -78,6 +78,20 @@ def averageImgV8(S):
     return rata
 
 
+def substractAllHimpunan(S):
+    # Mendapatkan nilai gambar dikurangi average
+    # Keluaran outputnya adalah matrix 2 dimensi
+    avg = averageImgV8(S) # Dapet nilai rata-ratanya
+    npAvg = np.array(avg)
+    avgFlat = npAvg.flatten()
+    N = len(S) # Dapet banyaknya gambar dalam dataset
+    matrixGreek = []
+    for i in range (N):
+        temp = np.array(S[i])
+        tempFlat = temp.flatten
+        matrixGreek.append(np.subtract(tempFlat,avgFlat))
+    return matrixGreek
+
 
 def covarianceGreek(path):
     # Mendapatkan nilai covariance aksen dari referensi greek
