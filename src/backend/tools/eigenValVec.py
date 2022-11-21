@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def eigenValVec(matrix,iteration=100):
+def eigenValVec(matrix,iteration=1):
     mat = np.copy(matrix)
     n = matrix.shape[0]
     QQ = np.eye(n)

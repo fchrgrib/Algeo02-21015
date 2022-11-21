@@ -6,7 +6,8 @@ import numpy as np
 def eigenFace(vector, path):
     subtract = sub.subtractAvAndTrain(path)
     all = len(subtract)
-    eig = [[[0 for i in range(256)] for j in range(256)] for k in range(all)]
+    eig = np.array([[[0 for i in range(256)] for j in range(256)]])
     for i in range(all):
-        eig[i] = np.matmul(vector,subtract[i])
+        eig = np.dot(vector,subtract[i])
+    # print(eig)
     return eig

@@ -13,6 +13,7 @@ def covariance(path):
     A = [[0 for i in range(256)] for j in range(256)]
     x = subs.subtractAvAndTrain(path)
     all = len(x)
+    print(all)
     for i in range(all):
         for j in range(256):
             for k in range(256):
