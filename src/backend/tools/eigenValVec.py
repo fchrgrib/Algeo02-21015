@@ -1,7 +1,7 @@
 import numpy as np
 import covarianceRemake as CR
 from matplotlib import pyplot as plt
-
+from tabulate import tabulate
 
 def getVektor(matrix, idx):
     # Mendapatkan kolom matrix ke i
@@ -36,7 +36,7 @@ def magnitude(vec):
     res = 0
     for i in range(len(vec)):
         res += vec[i]**2
-    res**0.5
+    res**=0.5
     return res
 
 
@@ -156,31 +156,77 @@ def getEigenVectorQR (matrix, eigenValue):
     # eigenValue merupakan nilai eigen value dari matrix
     # Mendapatkan eigen vector dari matrix
     # return dalam bentuk matrix
-    res = []
+    res = [[0 for m in range (len(matrix))] for n in range (len(matrix))]
     for i in range(len(eigenValue)):
         Matrix_temp = np.copy(matrix)
         eigenValue_temp = np.copy(eigenValue)
-        for j in range(len(eigenValue)):
-            Matrix_temp[j][j] = eigenValue_temp[i]
+        
+        # untuk mendapatkan matrix yang dikurang eigen value ke i
+        for j in range(len(eigenValue)): 
+            Matrix_temp[j][j] -= eigenValue_temp[i]
+            
+        # solve matrix A - lambda I dapat eigen vektor
         Eigen_Vector = np.linalg.solve(Matrix_temp, eigenValue_temp)
-        normalize_Vector = magnitudeSquare(Eigen_Vector)
+        print(Eigen_Vector)
+        
+        # cari panjang dari eigen vektor yang telah didapat
+        normalize_Vector = magnitude(Eigen_Vector)
+        
+        # normalisasikan (tiap elemen eigen vektor dibagi panjangnya)
         for k in range (len(eigenValue)):
             Eigen_Vector[k] /= normalize_Vector
-        res.append(Eigen_Vector)
-        return res
+            
+        # saat ini HARUSNYA sudah dapat eigen vektor sebenarnya
+        # jadi di append ke res lalu proses diulangi untuk eigen berikutnya
+        for z in range (len(matrix)):
+            res[z][i] = Eigen_Vector[z]
+
+    return res
+
+
+def getEigenVectorQRV2 (matrix):
+    pass
     
 
 def getRealEigenVector (S, eigenVectorQR):
     # eigenVectorQR merupakan eigen vektor yang didapat dari kovarian kecil
-    # S merupakan hipunan gambar
-    realVector = [] # 3 dimensi
-    for i in range(len(S)): 
-        tempArr = [0 for k in range (len(eigenVectorQR))]
-        for j in range (len(S)): # Jumlah gambar
-            tempArr = np.array(getVektor(eigenVectorQR, i))
-            res = np.matmul(S[j], tempArr.reshape(256,256))
-        realVector = np.concatenate(realVector, res)
+    # S merupakan hipunan gambar yang sudah di subtract
+    # ukuran S = 256^2 X N dengan N banyak file
+    realVector = [[0 for m in range(len(S[0]))] for n in range (len(S))] # 2 dimensi
+    for i in range(len(S[0])): 
+        # Mendapatkan eigen vektor dari S ke i
+        tempVec = getVektor(eigenVectorQR,i)
+        A = np.matmul(S, tempVec)
+        for j in range(len(S)):
+            realVector[j][i] = A[j]
+    return realVector
         
+
+def getEigenFace (S, realEigenVector):
+    # S merupakan himpunan gambar yang sudah di subtract
+    # ukuran S = 256^2 X N dengan N banyak file
+    eigenFace = [[0 for m in range(len(S[0]))] for n in range (len(S))] # 2 dimensi 
+    for i in range (len(S[0])): # loop N kali dengan N banyak file
+        tempVec = getVektor(realEigenVector,i)
+        A = np.matmul(S, tempVec)
+        for j in range(len(S)):
+            eigenFace[j][i] = A[j]
+    return eigenFace
+
+
+def eigen_qr_simple(matrix, iterations=10000):
+    Ak = np.copy(matrix)
+    n = matrix.shape[0]
+    QQ = np.eye(n)
+    for k in range(iterations):
+        [Q, R] = QR_decompositionV2(matrix)
+        Ak = R @ Q
+        QQ = QQ @ Q
+        #if (k % 10000 == 0):
+           # print("A",k,"=")
+           # print(tabulate(Ak))
+           # print("\n")
+    return Ak, QQ
 
 
 def getEigenFaceQR (eigenVector, path):
@@ -189,45 +235,3 @@ def getEigenFaceQR (eigenVector, path):
     matGreek = CR.substractAll(path)
     
     
-# S adalah himpunan gambar
-# Bentuk: N x 256 x 256
-S = CR.getHimpunanImgV3("./././test/small_dataset/1")
-
-# avg_S adalah rata-rata himpunan gambar
-# Bentuk: N x 256^2
-avg_S = CR.averageImgV8(S)
-subtracted_greeked = CR.substractAllHimpunan(S)
-print(len(subtracted_greeked))
-print(len(subtracted_greeked[0]))
-
-
-# covarGreek adalah covariance greek
-# N x N dengan N merupakan jumlah gambar
-covarGreek = CR.covarianceGreek("./././test/small_dataset/1")
-print(len(covarGreek))
-print(len(covarGreek[0]))
-
-
-# Q R merupakan hasil dekoposisi matrix covariance
-Q, R = QR_decompositionV2(covarGreek)
-print(Q)
-print(R)
-print("========================")
-Q1, R1 = np.linalg.qr(covarGreek)
-print(Q1)
-print(R1)
-
-print("\n\n")
-
-# eigVal merupakan eigen value dari matrix kovarian
-eigVal = getEigenValueQR(covarGreek,145)
-print(eigVal)
-print("========================")
-eigVal1, eigVec1 = np.linalg.eig(covarGreek)
-print(eigVal1)
-
-''' eigVal, eigVec = eigenValVecV2(covarGreek, 1000)
-eigVal2 = np.linalg.eigvals(covarGreek)
-print(eigVal)
-print("==========================")
-print(eigVal2) '''
