@@ -58,12 +58,15 @@ def orthogonalProjection(A,B):
 
 
 def QR_decomposition (matrix):
+    # Melakukan dekomposisi matrix dengan QR
+    # Returnnya adalah matrix Q dan R
     Q = np.copy(matrix)
     row = len(matrix)
     col = len(matrix[0])
     for j in range (col):
         u = getVektor(Q,j)
         v = getVektor(Q,j)
+        # GramSmith method
         for k in range (j-1,-1,-1):
             uk = getVektor(Q,k)
             u = np.subtract(u, orthogonalProjection(uk,v))
@@ -77,3 +80,20 @@ def QR_decomposition (matrix):
                 R[m][n] = temp[m][n]
     return Q, R
 
+
+def getEigenValueQR (matrix, iteration):
+    # Mendapatkan eigen value dari matrix
+    # return bentuk array
+    ret = [0 for m in range (len(matrix))]
+    A = np.copy(matrix)
+    for i in range (iteration):
+        [Q,R] = QR_decomposition(A)
+        A = np.matmul(R,Q)
+    for j in range (len(A)):
+        ret[i] = (A[i][i])
+    return ret
+    
+
+
+        
+        
