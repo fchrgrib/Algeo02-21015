@@ -95,5 +95,22 @@ def getEigenValueQR (matrix, iteration):
     
 
 
+def getEigenVectorQR (matrix, eigenValue):
+    # eigenValue merupakan nilai eigen value dari matrix
+    # Mendapatkan eigen vector dari matrix
+    # return dalam bentuk matrix
+    res = []
+    for i in range(len(eigenValue)):
+        Matrix_temp = np.copy(matrix)
+        eigenValue_temp = np.copy(eigenValue)
+        for j in range(len(eigenValue)):
+            Matrix_temp[j][j] = eigenValue_temp[i]
+        Eigen_Vector = np.linalg.solve(Matrix_temp, eigenValue_temp)
+        normalize_Vector = magnitudeSquare(Eigen_Vector)
+        for k in range (len(eigenValue)):
+            Eigen_Vector[k] /= normalize_Vector
+        res.append(Eigen_Vector)
+        return res
+
         
         
