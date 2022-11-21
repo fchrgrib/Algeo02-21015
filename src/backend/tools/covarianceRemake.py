@@ -2,7 +2,7 @@ import glob
 import cv2
 import matplotlib as plt
 import numpy as np
-import eigenValVec as ev
+# import eigenValVec as ev
 
 
 def readImgV2 (img_path):
@@ -58,7 +58,7 @@ def substractAll(path):
     matrixGreek = []
     for i in range (N):
         temp = np.array(S[i])
-        tempFlat = temp.flatten
+        tempFlat = temp.flatten()
         matrixGreek.append(np.subtract(tempFlat,avgFlat))
     return matrixGreek
 
@@ -78,6 +78,15 @@ def averageImgV8(S):
     return rata
 
 
+def subtractArray(Arr1, Arr2):
+    # mengembalikan nilai Arr1 - Arr2
+    res = [0 for z in range (len(Arr1))]
+    for i in range (len(Arr1)):
+        res[i] += Arr1[i]
+        res[i] -= Arr2[i]
+    return res
+
+
 def substractAllHimpunan(S):
     # Mendapatkan nilai gambar dikurangi average
     # Keluaran outputnya adalah matrix 2 dimensi
@@ -88,8 +97,9 @@ def substractAllHimpunan(S):
     matrixGreek = []
     for i in range (N):
         temp = np.array(S[i])
-        tempFlat = temp.flatten
-        matrixGreek.append(np.subtract(tempFlat,avgFlat))
+        tempFlat = temp.flatten()
+        tempAppender = np.subtract(tempFlat,avgFlat)
+        matrixGreek.append(tempAppender)
     return matrixGreek
 
 
@@ -97,16 +107,17 @@ def covarianceGreek(path):
     # Mendapatkan nilai covariance aksen dari referensi greek
     matrixGreek = substractAll(path)
     greekTranspose = np.transpose(matrixGreek)
-    greekCovariance = np.matmul(greekTranspose,matrixGreek)
+    greekCovariance = np.matmul(matrixGreek,greekTranspose)
     return greekCovariance
 
 
+''' 
 def getEigenGreek(path):
     covGreek = covarianceGreek(path)
     greekMatrix = substractAll(path)
     eigValGreek, eigVecGreek = ev.eigenValVec(covGreek,iteration=100)
     eigVecReal = np.matmul(greekMatrix,eigVecGreek)
-    
+     '''
 
         
         
