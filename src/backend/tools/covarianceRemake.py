@@ -23,6 +23,10 @@ def getHimpunanImgV3(path):
     S = []
     for j in range (len(new_file)):
         S.append(readImgV2(new_file[j]))
+    N = len(S)
+    SET = 256
+    for i in range (N):
+        S[i] = cv2.resize(S[i], (SET,SET), fx = 1, fy = 1)
     return S
 
 
@@ -32,8 +36,6 @@ def averageImgV7(path):
     S = getHimpunanImgV3(path)
     N = len(S)
     SET = 256
-    for i in range (N):
-        S[i] = cv2.resize(S[i], (SET,SET), fx = 1, fy = 1)
     rata = [[0 for i in range (SET)] for j in range (SET)]
     for j in range (N):
         for k in range (SET):
