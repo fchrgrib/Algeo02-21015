@@ -13,4 +13,11 @@ def subtractOneImage (matrix, avg):
     # avg merupakan average dataset
     A = np.subtract(matrix,avg)
     return A
-    
+
+def getEigenOneImg(m_subtracted):
+    # mendapatkan eigenFace dari one image
+    # m_subtracted merupakan image yang sudah dikurang
+    eigVal = EV.getEigenValueQR(m_subtracted, 100)
+    eigVec = EV.getEigenVectorQR(m_subtracted, eigVal)
+    eigFace = np.matmul(eigVec, m_subtracted)
+    return eigFace
