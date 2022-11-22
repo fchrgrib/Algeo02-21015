@@ -73,16 +73,18 @@ def openFile():
 
 def calculateFace():
     if (DATASET.get() != "") & (YOUR_IMAGE_PATH.get() != ""):
+        
         # Start timer
         start_counter = time.time()
+        
         # Loading (not working)
         counter_label.config(text="Loading...")
+        
         # dev note: Fungsi backend taro di sini
         print("Calculating face")
         print(searchFace(DATASET.get(), YOUR_IMAGE_PATH.get()))
-        # print(DATASET.get())
-        # print(YOUR_IMAGE_PATH.get())
         # dev note: sampai sini
+        
         # End timer
         end_counter = time.time()
         total_counter = end_counter - start_counter

@@ -37,12 +37,15 @@ def main(path, pathImg):
     eigFaceNew = ECR.getEigenOneImg(T_subtract)
 
     # dapatkan closest eucli distance
-    fileNum, jarak = ECR.getClosestImg(eigFace, eigFaceNew)
+    fileNum, jarak, jarak_maksimum = ECR.getClosestImg(eigFace, eigFaceNew)
 
     # dapatkan path dari image yang didapat
     pathFinal = AV.getcolorImageV2(fileNum,path)
-    
-    return pathFinal
+
+    # Get %similarity
+    similarity = ((jarak_maksimum - jarak)/jarak_maksimum) * 100
+
+    return pathFinal, similarity
 
 
 # path = main('./././test/small_dataset/1', './././test/small_dataset/1/Adriana Lima0_0.jpg')
