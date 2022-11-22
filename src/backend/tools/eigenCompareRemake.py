@@ -37,7 +37,7 @@ def euclideanDistance(eigFaceOld, eigFaceNew):
     # eigen face img lama dikurang eigen face image baru
     # lalu dicari panjangnya
     res = np.subtract(eigFaceOld,eigFaceNew)
-    result = EV.magnitude(res)
+    result = magnitudeMatrix(res)
     return result
 
 def getClosestImg(EigFaces, eigFaceNew):
@@ -51,7 +51,7 @@ def getClosestImg(EigFaces, eigFaceNew):
     for i in range (len(EigFaces) - 1):
         temp = euclideanDistance(EigFaces[i+1], eigFaceNew)
         print(temp)
-        if (temp.any() < min.any()):
+        if (temp < min):
             min = temp
-            minFace = i
-    return minFace, min
+            minFace = i+2
+    return minFace+1, min
