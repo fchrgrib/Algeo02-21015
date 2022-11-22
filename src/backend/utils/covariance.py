@@ -136,7 +136,7 @@ def getDistanceW(W_set, W):
     # mencari distance terendah 
     min = getLength(W_set[0], W)
     max = min
-    numberFile = 1
+    numberFile = 0
     # print(min)
     for i in range (len(W_set) - 1):
         temp = getLength(W_set[i+1], W)
