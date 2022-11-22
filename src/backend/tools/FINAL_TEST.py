@@ -1,7 +1,7 @@
-import eigenValVec as EV
-import covarianceRemake as CR
-import eigenCompareRemake as ECR
-import averageImage as AV
+import src.backend.tools.eigenValVec as EV
+import src.backend.tools.covarianceRemake as CR
+import src.backend.tools.eigenCompareRemake as ECR
+import src.backend.tools.averageImage as AV
 import time
 from matplotlib import pyplot as plt
 
@@ -44,8 +44,11 @@ def main(path, pathImg):
 
     # dapatkan path dari image yang didapat
     pathFinal = AV.getcolorImageV2(fileNum,path)
-    
-    return pathFinal
+
+    # Get %similarity
+    similarity = ((jarak_maksimum - jarak)/jarak_maksimum) * 100
+
+    return pathFinal, similarity
 
 
 # path = main('./././test/small_dataset/2', './././test/small_dataset/1/Adriana Lima22_121.jpg')
