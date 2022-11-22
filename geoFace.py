@@ -5,7 +5,7 @@ from tkinter.messagebox import showerror
 from PIL import ImageTk, Image
 import time
 
-import src.backend.tools.FINAL_TEST as searchFace
+import src.backend.tools.FINAL_TEST_FLAT as searchFace
 
 # Initialization --------------------------------------
 

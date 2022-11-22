@@ -233,15 +233,18 @@ def getLength(array1, array2):
 def getDistanceW(W_set, W):
     # mencari distance terendah 
     min = getLength(W_set[0], W)
+    max = min
     numberFile = 1
     # print(min)
     for i in range (len(W_set) - 1):
         temp = getLength(W_set[i+1], W)
         # print(temp)
-        if temp < min:
+        if (temp < min):
             min = temp
-            numberFile = i + 2
-    return min, numberFile
+            numberFile = i+1
+        if (temp > max):
+            max = temp
+    return numberFile, max, min
 
 
 ''' 

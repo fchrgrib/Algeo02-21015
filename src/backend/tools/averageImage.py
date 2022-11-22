@@ -181,7 +181,7 @@ def getcolorImageV2(number, path):
         # print("Hello")
         new_file.append(file[i].replace("\\","/"))
         # print(new_file[i])
-    return new_file[number-1]
+    return new_file[number]
     
 
 
