@@ -41,6 +41,10 @@ total_counter = 0
 COUNTER_STR = StringVar()
 COUNTER_STR.set(f"{total_counter:.2f} seconds")
 
+# 5. Result Image
+RESULT_IMG_PATH = StringVar()
+RESULT_IMG_PATH.set("")
+
 # Function --------------------------------------     
 
 def openFolder():
@@ -77,12 +81,16 @@ def calculateFace():
         start_counter = time.time()
         # Loading (not working)
         counter_label.config(text="Loading...")
+        
         # dev note: Fungsi backend taro di sini
         print("Calculating face")
-        print(searchFace(DATASET.get(), YOUR_IMAGE_PATH.get()))
-        # print(DATASET.get())
-        # print(YOUR_IMAGE_PATH.get())
+        RESULT_IMG_PATH.set(searchFace.main(DATASET.get(), YOUR_IMAGE_PATH.get()))
+        resultImage_img = Image.open(RESULT_IMG_PATH.get()).resize((280, 280))
+        resultImage_img = ImageTk.PhotoImage(resultImage_img)
+        resultImage_label.configure(image = resultImage_img)
+        resultImage_label.image = resultImage_img
         # dev note: sampai sini
+        
         # End timer
         end_counter = time.time()
         total_counter = end_counter - start_counter
@@ -230,6 +238,16 @@ yourImage_label = Label(
 )
 yourImage_label.place(
     x = 408, y = 235,
+    width = 280,
+    height = 280
+)
+
+resultImage_label = Label(
+    canvas,
+    width = 280, height = 280
+)
+resultImage_label.place(
+    x = 714, y = 235,
     width = 280,
     height = 280
 )
