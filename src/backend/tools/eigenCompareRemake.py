@@ -19,8 +19,9 @@ def subtractOneImage (matrix, avg):
 def getEigenOneImg(m_subtracted):
     # mendapatkan eigenFace dari one image
     # m_subtracted merupakan image yang sudah dikurang
-    eigVal = EV.getEigenValueQR(m_subtracted, 100)
-    eigVec = EV.getEigenVectorQR(m_subtracted, eigVal)
+    # eigVal = EV.getEigenValueQR(m_subtracted, 100)
+    # eigVec = EV.getEigenVectorQR(m_subtracted, eigVal)
+    eigVal, eigVec = EV.eigenValVecV4(m_subtracted)
     eigFace = np.matmul(eigVec, m_subtracted)
     return eigFace
 
@@ -50,6 +51,7 @@ def getClosestImg(EigFaces, eigFaceNew):
     max = euclideanDistance(EigFaces[0], eigFaceNew)
     for i in range (len(EigFaces) - 1):
         temp = euclideanDistance(EigFaces[i+1], eigFaceNew)
+        print(temp)
         if (temp < min):
             min = temp
             minFace = i+1

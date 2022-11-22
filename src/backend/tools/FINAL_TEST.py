@@ -25,10 +25,13 @@ def main(path, pathImg):
     # Q, R = EV.QR_decompositionV2(cov)
 
     # dapatkan eigen
-    eigValFun = EV.getEigenValueQR(cov,20)
-    eigVecFun = EV.getEigenVectorQR(cov, eigValFun)
+    # eigValFun = EV.getEigenValueQR(cov,20)
+    # eigVecFun = EV.getEigenVectorQR(cov, eigValFun)
+    # eigFace = EV.getEigenFaceV2(S_subtract, eigVecFun)
+    eigValFun, eigVecFun = EV.eigenValVecV4(cov)
     eigFace = EV.getEigenFaceV2(S_subtract, eigVecFun)
-
+    
+    
     # dapatkan img training
     T = ECR.getOneImage(pathImg)
     T_subtract = ECR.subtractOneImage(T, avg)
@@ -48,5 +51,5 @@ def main(path, pathImg):
     return pathFinal, similarity
 
 
-# path = main('./././test/small_dataset/1', './././test/small_dataset/1/Adriana Lima0_0.jpg')
+# path = main('./././test/small_dataset/2', './././test/small_dataset/1/Adriana Lima22_121.jpg')
 # print(path)
