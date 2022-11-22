@@ -1,7 +1,7 @@
-import eigenValVec as EV
-import covarianceRemake as CR
-import eigenCompareRemake as ECR
-import averageImage as AV
+import src.backend.tools.eigenValVec as EV
+import src.backend.tools.covarianceRemake as CR
+import src.backend.tools.eigenCompareRemake as ECR
+import src.backend.tools.averageImage as AV
 # import time
 # from matplotlib import pyplot as plt
 import numpy as np
@@ -65,12 +65,14 @@ def main(path, pathImg):
     # print("================================")
 
 
-    dist, numberFile = CR.getDistanceW(W,W_T)
+    numberFile, max, min = CR.getDistanceW(W,W_T)
     # print(numberFile)
+    similarity = ((max - min)/max)*100
     
     result_path = AV.getcolorImageV2(numberFile,path)
+
     
-    return result_path
+    return result_path, similarity
 
 
 # res = main('./././test/classes_pins_dataset/pins_Adriana_Lima', './././test/small_dataset/1/Adriana Lima26_149.jpg')
