@@ -1,9 +1,9 @@
-import eigenValVec as EV
-import covarianceRemake as CR
-import eigenCompareRemake as ECR
-import averageImage as AV
+import src.backend.tools.eigenValVec as EV
+import src.backend.tools.covarianceRemake as CR
+import src.backend.tools.eigenCompareRemake as ECR
+import src.backend.tools.averageImage as AV
 import time
-# from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt
 
 def main(path, pathImg):
     # path merupakan path dari foldernya

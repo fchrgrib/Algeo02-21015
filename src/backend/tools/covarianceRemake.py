@@ -3,8 +3,6 @@ import cv2
 import matplotlib as plt
 import numpy as np
 import src.backend.tools.subtractAvAndTrain as sub
-# import averageImage as ag
-# import eigenValVec as ev
 
 
 def readImgV2 (img_path):

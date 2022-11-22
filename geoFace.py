@@ -84,14 +84,20 @@ def calculateFace():
         # Loading (not working)
         counter_label.config(text="Loading...")
         
-        # dev note: Fungsi backend taro di sini
-        print("Calculating face")
-        RESULT_IMG_PATH.set(searchFace.main(DATASET.get(), YOUR_IMAGE_PATH.get()))
+        # Call main backend
+        print("Calculating face...")
+        print("*do not minimize the program*")
+        TEMP, SIMILARITY = searchFace.main(DATASET.get(), YOUR_IMAGE_PATH.get())
+        RESULT_IMG_PATH.set(TEMP)
+
+        # Configure similarity label
+        RESULT_STR.set(f"{SIMILARITY:.2f}% Similar")
+
+        # Configure output iamge label
         resultImage_img = Image.open(RESULT_IMG_PATH.get()).resize((280, 280))
         resultImage_img = ImageTk.PhotoImage(resultImage_img)
         resultImage_label.configure(image = resultImage_img)
         resultImage_label.image = resultImage_img
-        # dev note: sampai sini
         
         # End timer
         end_counter = time.time()

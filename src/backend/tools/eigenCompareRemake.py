@@ -1,5 +1,5 @@
-import eigenValVec as EV
-import averageImage as AV 
+import src.backend.tools.eigenValVec as EV
+import src.backend.tools.averageImage as AV 
 import numpy as np  
 import cv2
 
