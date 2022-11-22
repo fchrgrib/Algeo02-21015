@@ -213,15 +213,23 @@ def getEigenFace (S, realEigenVector):
     return eigenFace
 
 
-def getEigenFace (S, realEigenVector):
+def getVektorAsMatrix(matrix, idx):
+    # Mendapatkan kolom matrix ke i
+    # return bentuk matrix N x 1
+    vec = [0 for j in range (len(matrix[idx]))]
+    for i in range(len(matrix[idx])):
+        vec[i] = matrix[i][idx]
+    return vec
+
+
+def getEigenFaceV2 (S, realEigenVector):
     # S merupakan himpunan gambar yang sudah di subtract
-    # ukuran S = 256^2 X N dengan N banyak file
-    eigenFace = [[0 for m in range(len(S[0]))] for n in range (len(S))] # 2 dimensi 
-    for i in range (len(S[0])): # loop N kali dengan N banyak file
-        tempVec = getVektor(realEigenVector,i)
-        A = np.matmul(S, tempVec)
-        for j in range(len(S)):
-            eigenFace[j][i] = A[j]
+    # covariance yang dugybajab adalah yang asli
+    # ukuran S = 3 dimensi
+    eigenFace = [] # akan dibuat 3 dimensi
+    for i in range (len(S)): # loop N kali dengan N banyak file
+        A = np.matmul(realEigenVector, S[i])
+        eigenFace.append(A)
     return eigenFace
 
 
