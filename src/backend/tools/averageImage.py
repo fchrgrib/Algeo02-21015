@@ -168,13 +168,18 @@ def averageImgV6(path):
         for n in range (SET):
             rata[m][n] /= N
     return rata
+
+
+def getColorImage(number, path):
+    images = [cv2.imread(file) for file in glob.glob(path+'/*')]
+    return images[number-1]
+
+def getcolorImageV2(number, path):
+    file = glob.glob(str(path)+"/*")
+    new_file = []
+    for i in range (len(file)):
+        new_file.append(file[i].replace("\\","/"))
+    return new_file[number-1]
     
 
-# # Contoh driver:
-# start_time = time.time()
-# # Note: directory bisa diganti
-# # Fungsi yang efektif adalah averageImgV6 (versi keenam) dan getHimpunanImgV2 (versi kedua)
-# newImg = averageImgV6('.\\test/classes_pins_dataset/pins_Adriana_Lima')
-# print("--- %s seconds ---" % (time.time() - start_time))
-# showImg(newImg)
 

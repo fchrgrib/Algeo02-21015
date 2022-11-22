@@ -50,8 +50,7 @@ def getClosestImg(EigFaces, eigFaceNew):
     print(min)
     for i in range (len(EigFaces) - 1):
         temp = euclideanDistance(EigFaces[i+1], eigFaceNew)
-        print(temp)
         if (temp < min):
             min = temp
-            minFace = i+2
+            minFace = i+1
     return minFace+1, min
