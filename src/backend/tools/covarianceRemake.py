@@ -2,7 +2,8 @@ import glob
 import cv2
 import matplotlib as plt
 import numpy as np
-import averageImage as ag
+import src.backend.tools.subtractAvAndTrain as sub
+# import averageImage as ag
 # import eigenValVec as ev
 
 
@@ -102,11 +103,50 @@ def substractAllHimpunan(S):
         tempAppender = np.subtract(tempFlat,avgFlat)
         matrixGreek.append(tempAppender)
     return matrixGreek
+def substractAllHimpunanNew(S,S1):
+    # Mendapatkan nilai gambar dikurangi average
+    # Keluaran outputnya adalah matrix 2 dimensi
+    avg = averageImgV8(S1) # Dapet nilai rata-ratanya
+    npAvg = np.array(avg)
+    avgFlat = npAvg.flatten()
+    N = len(S) # Dapet banyaknya gambar dalam dataset
+    matrixGreek = []
+    for i in range (N):
+        temp = np.array(S[i])
+        tempFlat = temp.flatten()
+        tempAppender = np.subtract(tempFlat,avgFlat)
+        matrixGreek.append(tempAppender)
+    print(len(matrixGreek))
+    print(len(matrixGreek[0]))
+    return matrixGreek
 
 
 def covarianceGreek(path):
     # Mendapatkan nilai covariance aksen dari referensi greek
-    matrixGreek = substractAll(path)
+    matrixGreek = sub.subtractAvAndTrain(path)
+    greekCovariance = [0 for i in range(5)]
+    for i in range(len(matrixGreek)):
+        greekCovariance[i] = np.matmul(matrixGreek[i], np.transpose(matrixGreek[i]))
+    return greekCovariance
+
+
+def substractAllNew(path, pathOld):
+    S = getHimpunanImgV3(path)  # Dapet himpunan gambar
+    avg = averageImgV7(pathOld)  # Dapet nilai rata-ratanya
+    npAvg = np.array(avg)
+    avgFlat = npAvg.flatten()
+    N = len(S)  # Dapet banyaknya gambar dalam dataset
+    matrixGreek = []
+    for i in range(N):
+        temp = np.array(S[i])
+        tempFlat = temp.flatten()
+        matrixGreek.append(np.subtract(tempFlat, avgFlat))
+    return matrixGreek
+
+
+def covarianceGreekNew(path,pathOld):
+    # Mendapatkan nilai covariance aksen dari referensi greek
+    matrixGreek = substractAllNew(path,pathOld)
     greekTranspose = np.transpose(matrixGreek)
     greekCovariance = np.matmul(matrixGreek,greekTranspose)
     return greekCovariance

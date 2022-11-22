@@ -182,12 +182,4 @@ def getcolorImageV2(number, path):
     return new_file[number-1]
     
 
-# # Contoh driver:
-''' start_time = time.time()
-# # Note: directory bisa diganti
-# # Fungsi yang efektif adalah averageImgV6 (versi keenam) dan getHimpunanImgV2 (versi kedua)
-# newImg = averageImgV6('.\\test/classes_pins_dataset/pins_Adriana Lima')
-newImg = averageImgV6('.\\test\\small_dataset\\1')
-print("--- %s seconds ---" % (time.time() - start_time))
-showImg(newImg)
- '''
+
