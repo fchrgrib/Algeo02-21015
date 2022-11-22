@@ -1,5 +1,5 @@
-import eigenValVec as EV
-import averageImage as AV 
+import src.backend.tools.eigenValVec as EV
+import src.backend.tools.averageImage as AV 
 import numpy as np  
 import cv2
 
@@ -19,8 +19,9 @@ def subtractOneImage (matrix, avg):
 def getEigenOneImg(m_subtracted):
     # mendapatkan eigenFace dari one image
     # m_subtracted merupakan image yang sudah dikurang
-    eigVal = EV.getEigenValueQR(m_subtracted, 100)
-    eigVec = EV.getEigenVectorQR(m_subtracted, eigVal)
+    # eigVal = EV.getEigenValueQR(m_subtracted, 100)
+    # eigVec = EV.getEigenVectorQR(m_subtracted, eigVal)
+    eigVal, eigVec = EV.eigenValVecV4(m_subtracted)
     eigFace = np.matmul(eigVec, m_subtracted)
     return eigFace
 
@@ -47,8 +48,10 @@ def getClosestImg(EigFaces, eigFaceNew):
     # return minFace merupakan index ke minFace gambar
     minFace = 0
     min = euclideanDistance(EigFaces[0], eigFaceNew)
+    print(min)
     for i in range (len(EigFaces) - 1):
         temp = euclideanDistance(EigFaces[i+1], eigFaceNew)
+        print(temp)
         if (temp < min):
             min = temp
             minFace = i+1
