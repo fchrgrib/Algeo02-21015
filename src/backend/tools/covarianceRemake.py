@@ -178,7 +178,70 @@ def covarianceManual(path):
     AT = np.transpose(A)
     cov = np.matmul(A, AT)
     return cov
+
+def convertBack(matrix):
+    # mengembalikan bentuk matrix
+    final = []
+    for k in range (len(matrix)):
+        count = []
+        for l in range (256):
+            cobs = []
+            for m in range (256):
+                cobs.append(matrix[k][l*255+m])
+            count.append(cobs)
+        final.append(count)
+    return final
+
+def convertBackV2(matrix):
+    final = []
+    for i in range(len(matrix)):
+        comp = np.resize(matrix[i],(256,256))
+        final.append(comp)
+    return final
+
+
+def getWeight(matrix, eigenface):
+    # matrix merupakan norm
+    # eigenFace dihitung
+    # ukuran sama sama 5 x 256^2
+    # W matrix jumlah gambar^2
+    W = [] # matrix
+    for i in range (len(matrix)): # jumlah image
+        W_temp = []
+        for j in range (len(matrix)):
+            W_temp.append(np.dot(matrix[i], eigenface[j]))
+        W.append(W_temp)
+    return W
+
+
+def getWeightOne(T, eigenFace):
+    # mencari W dari training image
+    W = []
+    for i in range (len(eigenFace)):
+        W.append(np.dot(T, eigenFace[i]))
+    return W
+
+
+def getLength(array1, array2):
+    # mendapatkan jarak dua array
+    temp = 0
+    for i in range (len(array1)):
+        temp += (array1[i] - array2[i])**2
+    return temp**0.5
+
     
+def getDistanceW(W_set, W):
+    # mencari distance terendah 
+    min = getLength(W_set[0], W)
+    numberFile = 1
+    # print(min)
+    for i in range (len(W_set) - 1):
+        temp = getLength(W_set[i+1], W)
+        # print(temp)
+        if temp < min:
+            min = temp
+            numberFile = i + 2
+    return min, numberFile
 
 
 ''' 
