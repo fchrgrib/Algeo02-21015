@@ -31,8 +31,9 @@ print(eigVec)
  '''
 print("=========================================================")
 
-''' eigFace = EV.getEigenFace(S_concat, eigVecFun)
+eigFace = EV.getEigenFaceV2(S_subtract, eigVecFun)
 print(len(eigFace), ',', len(eigFace[0]))
-print((np.transpose(eigFace))) '''
+print(((eigFace)))
 
 print("=========================================================")
+
