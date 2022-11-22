@@ -3,7 +3,7 @@ import covarianceRemake as CR
 import eigenCompareRemake as ECR
 import averageImage as AV
 import time
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 
 def main(path, pathImg):
     # path merupakan path dari foldernya
