@@ -174,7 +174,7 @@ def averageImgV6(path):
 # start_time = time.time()
 # # Note: directory bisa diganti
 # # Fungsi yang efektif adalah averageImgV6 (versi keenam) dan getHimpunanImgV2 (versi kedua)
-# newImg = averageImgV6('.\\test/classes_pins_dataset/pins_Adriana Lima')
+# newImg = averageImgV6('.\\test/classes_pins_dataset/pins_Adriana_Lima')
 # print("--- %s seconds ---" % (time.time() - start_time))
 # showImg(newImg)
 

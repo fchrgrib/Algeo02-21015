@@ -5,7 +5,7 @@ import numpy as np
 
 print("=========================================================")
 
-path = './././test/classes_pins_dataset/coba1'
+path = '../../../test/classes_pins_dataset/coba1'
 S = CR.getHimpunanImgV3(path)
 S_subtract = CR.subtractNoFlat(S)
 S_concat = CR.concatManual(S)
