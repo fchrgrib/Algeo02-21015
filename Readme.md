@@ -27,12 +27,12 @@ Tubes 2 of Aljabar Linier dan Geometri (IF2123). A face recognition app utilizin
 │   │   ├── medium_dataset
 │   │   └── small_dataset
 │   └── sample ------------------------------------ Folder containing sample images
-├── GeoFace.py ------------------------------------ Main program
+├── Geo Face.py ----------------------------------- Main program
 └── README.md
 ```
 ## Local Setup
 1. Clone this repository
-2. Double click on GeoFace.py or 
-3. Run GeoFace.by by running: ```python GeoFace.py```
+2. Double click on ```Geo Face.py``` or 
+3. Run ```Geo Face.py``` by running: ```python GeoFace.py``` in terminal
 ## Technology Used
 - Python
