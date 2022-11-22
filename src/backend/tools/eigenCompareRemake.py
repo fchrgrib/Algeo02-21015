@@ -47,7 +47,6 @@ def getClosestImg(EigFaces, eigFaceNew):
     # return minFace merupakan index ke minFace gambar
     minFace = 0
     min = euclideanDistance(EigFaces[0], eigFaceNew)
-    print(min)
     for i in range (len(EigFaces) - 1):
         temp = euclideanDistance(EigFaces[i+1], eigFaceNew)
         if (temp < min):
