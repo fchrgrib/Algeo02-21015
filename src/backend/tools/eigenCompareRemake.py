@@ -28,3 +28,17 @@ def euclideanDistance(eigFaceOld, eigFaceNew):
     res = np.subtract(eigFaceOld,eigFaceNew)
     result = EV.magnitude(res)
     return result
+
+def getClosestImg(EigFaces, eigFaceNew):
+    # EigFaces   : eigFace dari img dataset yg sudah dikurang
+    # EigFaces berbentuk 3D
+    # eigFaceNew : eigFace dari image new
+    # return minFace merupakan index ke minFace gambar
+    minFace = 0
+    min = euclideanDistance(EigFaces[0], eigFaceNew)
+    for i in range (len(EigFaces) - 1):
+        temp = euclideanDistance(EigFaces[i+1], eigFaceNew)
+        if (temp < min):
+            min = temp
+            minFace = i
+    return minFace
