@@ -178,7 +178,9 @@ def getcolorImageV2(number, path):
     file = glob.glob(str(path)+"/*")
     new_file = []
     for i in range (len(file)):
+        # print("Hello")
         new_file.append(file[i].replace("\\","/"))
+        # print(new_file[i])
     return new_file[number-1]
     
 
