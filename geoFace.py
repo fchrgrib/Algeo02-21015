@@ -1,3 +1,5 @@
+# Import modules -------------------------------------------
+
 import os
 from tkinter import *
 from tkinter import filedialog
@@ -5,9 +7,11 @@ from tkinter.messagebox import showerror
 from PIL import ImageTk, Image
 import time
 
-import src.backend.tools.FINAL_TEST_FLAT as searchFace
+# Import custom modules ------------------------------------
 
-# Initialization --------------------------------------
+import src.backend.calculateFace as searchFace
+
+# Initialization -------------------------------------------
 
 window = Tk()
 window.configure(bg="white")
@@ -16,17 +20,17 @@ window.resizable(False, False)
 window.title("GeoFace")
 window.iconbitmap("src/frontend/img/geoface.ico")
 
-# Variables --------------------------------------
+# Variables ------------------------------------------------
 
 # 1. Dataset
-DATASET = StringVar() # dev note: Ini input Dataset-nya. Cara akses stringnya DATASET.get()
+DATASET = StringVar() 
 DATASET.set("")
 
 DATASET_PLACEHOLDER = StringVar()
 DATASET_PLACEHOLDER.set("No data chosen")
 
 # 2. Image input
-YOUR_IMAGE_PATH = StringVar() # dev note: Ini input Test Image-nya. Cara akses stringnya DATASET.get()
+YOUR_IMAGE_PATH = StringVar() 
 YOUR_IMAGE_PATH.set("")
 
 YOUR_IMAGE_PLACEHOLDER = StringVar()
@@ -45,7 +49,7 @@ COUNTER_STR.set(f"{total_counter:.2f} seconds")
 RESULT_IMG_PATH = StringVar()
 RESULT_IMG_PATH.set("")
 
-# Function --------------------------------------     
+# Functions ------------------------------------------------
 
 def openFolder():
     DATASET_STR = filedialog.askdirectory(
@@ -106,7 +110,7 @@ def calculateFace():
     else:
         showerror(title="Error", message="Data set and Image are invalid")
 
-# Components --------------------------------------
+# Components -----------------------------------------------
 
 # 1. Canvas
 canvas = Canvas(
@@ -259,6 +263,5 @@ resultImage_label.place(
     width = 280,
     height = 280
 )
-
 
 window.mainloop()
