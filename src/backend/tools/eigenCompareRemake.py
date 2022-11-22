@@ -21,3 +21,10 @@ def getEigenOneImg(m_subtracted):
     eigVec = EV.getEigenVectorQR(m_subtracted, eigVal)
     eigFace = np.matmul(eigVec, m_subtracted)
     return eigFace
+
+def euclideanDistance(eigFaceOld, eigFaceNew):
+    # eigen face img lama dikurang eigen face image baru
+    # lalu dicari panjangnya
+    res = np.subtract(eigFaceOld,eigFaceNew)
+    result = EV.magnitude(res)
+    return result
