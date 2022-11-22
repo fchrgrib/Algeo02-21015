@@ -1,5 +1,5 @@
-import src.backend.tools.eigenValVec as EV
-import src.backend.tools.averageImage as AV 
+import eigenValVec as EV
+import averageImage as AV 
 import numpy as np  
 import cv2
 
@@ -48,11 +48,12 @@ def getClosestImg(EigFaces, eigFaceNew):
     # return minFace merupakan index ke minFace gambar
     minFace = 0
     min = euclideanDistance(EigFaces[0], eigFaceNew)
-    print(min)
     for i in range (len(EigFaces) - 1):
         temp = euclideanDistance(EigFaces[i+1], eigFaceNew)
         print(temp)
         if (temp < min):
             min = temp
             minFace = i+1
-    return minFace+1, min
+        if (temp > max):
+            max = temp
+    return minFace+1, min, max

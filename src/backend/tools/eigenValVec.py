@@ -1,7 +1,7 @@
 import numpy as np
 import src.backend.tools.covarianceRemake as CR
 from matplotlib import pyplot as plt
-from tabulate import tabulate
+# from tabulate import tabulate
 
 def getVektor(matrix, idx):
     # Mendapatkan kolom matrix ke i
