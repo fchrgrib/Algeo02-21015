@@ -1,7 +1,7 @@
 import numpy as np
 import src.backend.tools.covarianceRemake as CR
 from matplotlib import pyplot as plt
-# from tabulate import tabulate
+from tabulate import tabulate
 
 def getVektor(matrix, idx):
     # Mendapatkan kolom matrix ke i
@@ -230,6 +230,8 @@ def getEigenFaceV2 (S, realEigenVector):
     for i in range (len(S)): # loop N kali dengan N banyak file
         A = np.matmul(realEigenVector, S[i])
         eigenFace.append(A)
+#        img_plot = plt.imshow(A,cmap='gray', vmin=0, vmax=255)
+#        plt.show()
     return eigenFace
 
 
@@ -254,3 +256,43 @@ def getEigenFaceQR (eigenVector, path):
     matGreek = CR.substractAll(path)
     
     
+def QR_DecompositionV3(matrix):
+    n, m = matrix.shape 
+    matrixQ = np.empty((n, n)) 
+    matrixU = np.empty((n, n)) 
+    matrixU[:, 0] = matrix[:, 0]      
+    matrixQ[:, 0] = matrixU[:, 0] / EuclideanDistance(matrixU[:, 0]) 
+    for i in range(1, n):       
+        matrixU[:, i] = matrix[:, i]  
+        for j in range(i):    
+            matrixU[:, i] -= (matrix[:, i] @ matrixQ[:, j]) * matrixQ[:, j]
+        matrixQ[:, i] = matrixU[:, i] / EuclideanDistance(matrixU[:, i])
+    matrixR = np.zeros((n, m))
+    for i in range(n):
+        for j in range(i, m):   
+            matrixR[i, j] = matrix[:, j] @ matrixQ[:, i]    
+    return matrixQ, matrixR 
+
+def eigenValVecV3(matrix):
+    eigVector = np.eye(matrix.shape[0])
+    X = np.copy(matrix)
+    for i in range(1):
+            Q,R = QR_DecompositionV3(X)
+            eigVector = np.matmul(eigVector, Q)
+            X = np.matmul(R, Q)
+    return np.diag(X), eigVector
+
+def EuclideanDistance(matrix):
+    return np.sqrt(np.sum(np.square(matrix)))
+
+def eigenValVecV4(matrix, iterations=50):
+    Ak = np.copy(matrix)
+    n = matrix.shape[0]
+    QQ = np.eye(n)
+    for k in range(iterations):
+        Q, R = QR_decompositionV2(Ak)
+        Ak = R @ Q
+        QQ = QQ @ Q
+        # we "peek" into the structure of matrix A from time to time
+        # to see how it looks
+    return Ak, QQ
